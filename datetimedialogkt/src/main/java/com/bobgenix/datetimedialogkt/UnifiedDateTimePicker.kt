@@ -25,7 +25,8 @@ class UnifiedDateTimePicker private constructor(
     internal var buttonTextSize: Int = 14,
     internal var onDateTimeSelected: OnDateTimeSelectedListener? = null,
     internal var locale: Locale?,
-    internal var milliseconds: Long = 0L
+    internal var milliseconds: Long = 0L,
+    internal var maxDays: Int = -1
 ) {
 
     data class Builder(
@@ -53,7 +54,8 @@ class UnifiedDateTimePicker private constructor(
         internal var laterYearDateFormat: String = "'Send on' MMM d yyyy 'at' HH:mm",
         internal var todayText: String = "Today",
         internal var locale: Locale? = Locale.getDefault(),
-        internal var milliseconds: Long = 0L
+        internal var milliseconds: Long = 0L,
+        internal var maxDays: Int = -1
     ) {
         fun title(title: String) = apply {
             this.title = title
@@ -103,9 +105,9 @@ class UnifiedDateTimePicker private constructor(
             onDateTimeSelected = listener
         }
 
-        fun setDateTimeMillis(millis: Long) = apply {
-            milliseconds = millis
-        }
+        fun setDateTimeMillis(millis: Long) = apply { milliseconds = millis }
+
+        fun setMaxDays(max: Int) = apply { maxDays = max }
 
         fun setLocale(newLocale: Locale?) = apply { locale = newLocale }
 
@@ -136,7 +138,8 @@ class UnifiedDateTimePicker private constructor(
             buttonTextSize = buttonTextSize,
             onDateTimeSelected = onDateTimeSelected,
             locale = locale,
-            milliseconds = milliseconds
+            milliseconds = milliseconds,
+            maxDays = maxDays
         )
 
         fun show() {

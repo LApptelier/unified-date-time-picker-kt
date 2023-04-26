@@ -36,22 +36,17 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
     ): BottomSheet.Builder {
 
         AndroidUtilities.checkDisplaySize(
-            unifiedDateTimePicker.context,
-            unifiedDateTimePicker.context.resources.configuration
+            unifiedDateTimePicker.context, unifiedDateTimePicker.context.resources.configuration
         )
 
-        formatterScheduleSend[0] =
-            createFormatter(
-                locale,
-                unifiedDateTimePicker.todayDateFormat,
-                unifiedDateTimePicker.todayDateFormat
-            )
-        formatterScheduleSend[1] =
-            createFormatter(
-                locale,
-                unifiedDateTimePicker.laterMonthDateFormat,
-                unifiedDateTimePicker.laterMonthDateFormat
-            )
+        formatterScheduleSend[0] = createFormatter(
+            locale, unifiedDateTimePicker.todayDateFormat, unifiedDateTimePicker.todayDateFormat
+        )
+        formatterScheduleSend[1] = createFormatter(
+            locale,
+            unifiedDateTimePicker.laterMonthDateFormat,
+            unifiedDateTimePicker.laterMonthDateFormat
+        )
         formatterScheduleSend[2] = createFormatter(
             locale,
             unifiedDateTimePicker.laterYearDateFormat,
@@ -64,8 +59,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         val dayPicker = NumberPicker(context)
         dayPicker.setTextColor(
             ContextCompat.getColor(
-                context,
-                unifiedDateTimePicker.dateTimeTextColor
+                context, unifiedDateTimePicker.dateTimeTextColor
             )
         )
         dayPicker.setTextOffset(dp(10f))
@@ -80,8 +74,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         hourPicker.setItemCount(5)
         hourPicker.setTextColor(
             ContextCompat.getColor(
-                context,
-                unifiedDateTimePicker.dateTimeTextColor
+                context, unifiedDateTimePicker.dateTimeTextColor
             )
         )
         hourPicker.setTextOffset(-dp(10f))
@@ -95,8 +88,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         minutePicker.setItemCount(5)
         minutePicker.setTextColor(
             ContextCompat.getColor(
-                context,
-                unifiedDateTimePicker.dateTimeTextColor
+                context, unifiedDateTimePicker.dateTimeTextColor
             )
         )
         minutePicker.setTextOffset(-dp(34f))
@@ -136,8 +128,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
 
         val titleLayout = FrameLayout(context)
         container.addView(
-            titleLayout,
-            createLinear(
+            titleLayout, createLinear(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 Gravity.START or Gravity.TOP,
@@ -152,19 +143,16 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         titleView.text = unifiedDateTimePicker.title
         titleView.setTextColor(
             ContextCompat.getColor(
-                context,
-                unifiedDateTimePicker.titleTextColor
+                context, unifiedDateTimePicker.titleTextColor
 
             )
         )
         titleView.setTextSize(
-            TypedValue.COMPLEX_UNIT_DIP,
-            unifiedDateTimePicker.titleTextSize.toFloat()
+            TypedValue.COMPLEX_UNIT_DIP, unifiedDateTimePicker.titleTextSize.toFloat()
         )
         titleView.typeface = unifiedDateTimePicker.titleTypeface
         titleLayout.addView(
-            titleView,
-            createFrame(
+            titleView, createFrame(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT.toFloat(),
                 Gravity.START or Gravity.TOP,
@@ -197,7 +185,8 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         linearLayout.addView(dayPicker, createLinear(0, 54 * 5, 0.5f))
 
         dayPicker.minValue = 0
-        dayPicker.maxValue = 365
+        dayPicker.maxValue =
+            if (unifiedDateTimePicker.maxDays > 0) unifiedDateTimePicker.maxDays else 365
         dayPicker.wrapSelectorWheel = false
         dayPicker.setFormatter(object : NumberPicker.Formatter {
             override fun format(value: Int): String {
@@ -278,25 +267,20 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         buttonTextView.gravity = Gravity.CENTER
         buttonTextView.setTextColor(
             ContextCompat.getColor(
-                context,
-                unifiedDateTimePicker.buttonTextColor
+                context, unifiedDateTimePicker.buttonTextColor
             )
         )
         buttonTextView.setTextSize(
-            TypedValue.COMPLEX_UNIT_DIP,
-            unifiedDateTimePicker.buttonTextSize.toFloat()
+            TypedValue.COMPLEX_UNIT_DIP, unifiedDateTimePicker.buttonTextSize.toFloat()
         )
         buttonTextView.typeface = unifiedDateTimePicker.buttonTypeface
         buttonTextView.setBackgroundDrawable(
             createSimpleSelectorRoundRectDrawable(
-                dp(4f),
-                unifiedDateTimePicker.buttonColor,
-                Color.GRAY
+                dp(4f), unifiedDateTimePicker.buttonColor, Color.GRAY
             )
         )
         container.addView(
-            buttonTextView,
-            createLinear(
+            buttonTextView, createLinear(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 48,
                 Gravity.START or Gravity.BOTTOM,
@@ -374,9 +358,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
     }
 
     private fun createFormatter(
-        locale: Locale,
-        formatValue: String,
-        defaultFormat: String
+        locale: Locale, formatValue: String, defaultFormat: String
     ): FastDateFormat {
         var format: String? = formatValue
         if (format.isNullOrEmpty()) {
@@ -391,6 +373,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         }
         return formatter
     }
+
 
     fun checkScheduleDate(
         button: TextView?,
@@ -507,9 +490,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
 
     private fun createLinear(width: Int, height: Int, weight: Float): LinearLayout.LayoutParams {
         return LinearLayout.LayoutParams(
-            getSize(width.toFloat()),
-            getSize(height.toFloat()),
-            weight
+            getSize(width.toFloat()), getSize(height.toFloat()), weight
         )
     }
 
@@ -519,10 +500,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
 
     @JvmOverloads
     fun createSimpleSelectorRoundRectDrawable(
-        rad: Int,
-        defaultColor: Int,
-        pressedColor: Int,
-        maskColor: Int = pressedColor
+        rad: Int, defaultColor: Int, pressedColor: Int, maskColor: Int = pressedColor
     ): Drawable {
         val defaultDrawable = ShapeDrawable(
             RoundRectShape(
@@ -538,10 +516,9 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
                 ), null, null
             )
         )
-        defaultDrawable.paint.color =
-            ContextCompat.getColor(
-                unifiedDateTimePicker.context, defaultColor
-            )
+        defaultDrawable.paint.color = ContextCompat.getColor(
+            unifiedDateTimePicker.context, defaultColor
+        )
         val pressedDrawable = ShapeDrawable(
             RoundRectShape(
                 floatArrayOf(
@@ -558,8 +535,7 @@ internal class UnifiedDateTimePickerHelper(private val unifiedDateTimePicker: Un
         )
         pressedDrawable.paint.color = maskColor
         val colorStateList = ColorStateList(
-            arrayOf(StateSet.WILD_CARD),
-            intArrayOf(pressedColor)
+            arrayOf(StateSet.WILD_CARD), intArrayOf(pressedColor)
         )
         return RippleDrawable(colorStateList, defaultDrawable, pressedDrawable)
     }

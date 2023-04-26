@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
                     "'Envoyer le' d MMM yyyy 'à' HH:mm",
                     "'Envoyer le' d MMM yyyy 'à' HH:mm"
                 )
+                .setMaxDays(2)
+                .setDateTimeMillis(System.currentTimeMillis()+1000*120)
                 .addListener(object : OnDateTimeSelectedListener {
                     override fun onDateTimeSelected(millis: Long) {
                         val sdf = SimpleDateFormat(DATE_FORMAT, Locale.ROOT)
