@@ -5,22 +5,23 @@ plugins {
 
 ext {
     // Provide your own coordinates here
-    PUBLISH_GROUP_ID = 'io.github.bobbysandhu'
-    PUBLISH_VERSION = '1.0.1'
+    PUBLISH_GROUP_ID = 'io.github.lapptelier'
+    PUBLISH_VERSION = '1.1.0'
     PUBLISH_ARTIFACT_ID = 'unified-date-time-picker-kt'
 }
 
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
-    compileSdk 31
+    compileSdk 32
+    namespace "com.datetimedemokt"
 
     defaultConfig {
         //applicationId "com.bobgenix.datetimedialogkt"
         minSdk 21
-        targetSdk 31
+        targetSdk 32
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
