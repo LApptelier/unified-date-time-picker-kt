@@ -3,15 +3,6 @@ plugins {
     id 'kotlin-android'
 }
 
-ext {
-    // Provide your own coordinates here
-    PUBLISH_GROUP_ID = 'com.github.Lapptelier'
-    PUBLISH_VERSION = '1.1.0'
-    PUBLISH_ARTIFACT_ID = 'unified-date-time-picker-kt'
-}
-
-apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
-
 android {
     compileSdk 32
     namespace "com.datetimedemokt"
