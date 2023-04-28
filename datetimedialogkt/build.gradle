@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+group = 'com.github.LApptelier'
+
 android {
     compileSdk 32
     namespace "com.datetimedemokt"
